@@ -107,7 +107,7 @@ const App: React.FC = () => {
                 height={192}
                 className="w-full h-full object-cover"
               />
-            </div> 
+            </div>
             <div className="flex-1">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Shiqi Pang</h1>
               <p className="text-2xl mb-2">Frontend Developer</p>
@@ -136,9 +136,11 @@ const App: React.FC = () => {
                 data-aos="fade-up"
               >
                 <div className="relative overflow-hidden rounded-t-xl">
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
+                    width={192}
+                    height={192}
                     className="w-full h-48 object-cover transition-transform group-hover:scale-110"
                   />
                 </div>
@@ -175,9 +177,11 @@ const App: React.FC = () => {
               >
                 <div className="md:flex gap-6 items-center">
                   <div className="w-full md:w-1/3 mb-4 md:mb-0">
-                    <img
+                    <Image
                       src={article.image}
                       alt={article.title}
+                      width={192}
+                      height={192}
                       className="w-full h-48 object-cover rounded-xl"
                     />
                   </div>
