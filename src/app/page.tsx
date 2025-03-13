@@ -107,9 +107,9 @@ const App: React.FC = () => {
                 height={192}
                 className="w-full h-full object-cover"
               />
-            </div>
+            </div> 
             <div className="flex-1">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Hi, I'm Shiqi Pang</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Shiqi Pang</h1>
               <p className="text-2xl mb-2">Frontend Developer</p>
               <p className="text-lg mb-6">Passionate frontend developer specializing in React and modern web technologies.</p>
               <div className="flex space-x-4">
