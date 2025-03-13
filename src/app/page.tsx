@@ -2,25 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { FaMoon, FaSun, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaMoon, FaSun, FaGithub, FaLinkedin } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-interface Education {
-  id: number;
-  degree: string;
-  school: string;
-  year: string;
-  description: string;
-}
-
-interface Experience {
-  id: number;
-  role: string;
-  company: string;
-  period: string;
-  description: string;
-}
 
 interface Project {
   id: number;
@@ -47,7 +32,7 @@ const App: React.FC = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: "E-Commerce Platform",
@@ -74,7 +59,7 @@ const App: React.FC = () => {
     }
   ];
 
-  const articles = [
+  const articles: Article[] = [
     {
       id: 1,
       title: "Mastering React Hooks",
