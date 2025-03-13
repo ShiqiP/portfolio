@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   basePath: process.env.BASE_PATH,
   output: "export",
+  distDir: 'out',
   images: {
     remotePatterns: [
       {
