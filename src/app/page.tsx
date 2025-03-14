@@ -37,7 +37,7 @@ const App: React.FC = () => {
       id: 1,
       title: "E-Commerce Platform",
       description: "A full-featured online shopping platform with React and Node.js",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+      image: "/javascript.png",
       technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
       demoLink: "#"
     },
@@ -45,7 +45,7 @@ const App: React.FC = () => {
       id: 2,
       title: "Task Management App",
       description: "Collaborative task management solution with real-time updates",
-      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8",
+      image: "/javascript.png",
       technologies: ["React", "Firebase", "Material-UI"],
       demoLink: "#"
     },
@@ -53,7 +53,7 @@ const App: React.FC = () => {
       id: 3,
       title: "Weather Dashboard",
       description: "Real-time weather tracking with detailed analytics",
-      image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b",
+      image: "/javascript.png",
       technologies: ["React", "OpenWeather API", "Chart.js"],
       demoLink: "#"
     }
@@ -66,7 +66,7 @@ const App: React.FC = () => {
       excerpt: "Deep dive into React Hooks and their practical applications",
       readTime: "5 min",
       date: "2024-01-15",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee"
+      image: "/sunflower.jpg"
     },
     {
       id: 2,
@@ -74,7 +74,7 @@ const App: React.FC = () => {
       excerpt: "Exploring advanced CSS features and best practices",
       readTime: "4 min",
       date: "2024-01-10",
-      image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2"
+      image: "/sunflower.jpg"
     }
   ];
   return (
@@ -101,7 +101,7 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-48 h-48 rounded-full overflow-hidden">
               <Image
-                src="/avatar.jpg"
+                src={'/portfolio/avatar.jpg'}
                 alt="Profile"
                 width={192}
                 height={192}
@@ -136,13 +136,17 @@ const App: React.FC = () => {
                 data-aos="fade-up"
               >
                 <div className="relative overflow-hidden rounded-t-xl">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={192}
-                    height={192}
-                    className="w-full h-48 object-cover transition-transform group-hover:scale-110"
-                  />
+                  <div
+                    className="w-full h-48  transition-transform group-hover:scale-110"
+                  >
+                    <Image
+                      src={`/portfolio${project.image}`}
+                      alt="Profile"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
                 </div>
                 <div className="p-6 bg-white dark:bg-gray-700 rounded-b-xl">
                   <h3 className="text-gray-50 text-xl font-bold mb-2">{project.title}</h3>
@@ -178,10 +182,11 @@ const App: React.FC = () => {
                 <div className="md:flex gap-6 items-center">
                   <div className="w-full md:w-1/3 mb-4 md:mb-0">
                     <Image
-                      src={article.image}
+                      priority={true}
+                      src={`/portfolio${article.image}`}
                       alt={article.title}
                       width={192}
-                      height={192}
+                      height={500}
                       className="w-full h-48 object-cover rounded-xl"
                     />
                   </div>
