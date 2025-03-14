@@ -101,7 +101,7 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-48 h-48 rounded-full overflow-hidden">
               <Image
-                src={'/portfolio/avatar.jpg'}
+                src={`${process.env.BASE_PATH}/avatar.jpg`}
                 alt="Profile"
                 width={192}
                 height={192}
@@ -140,7 +140,7 @@ const App: React.FC = () => {
                     className="w-full h-48  transition-transform group-hover:scale-110"
                   >
                     <Image
-                      src={`/portfolio${project.image}`}
+                      src={`${process.env.BASE_PATH}${project.image}`}
                       alt="Profile"
                       fill
                       className="object-cover"
@@ -183,7 +183,7 @@ const App: React.FC = () => {
                   <div className="w-full md:w-1/3 mb-4 md:mb-0">
                     <Image
                       priority={true}
-                      src={`/portfolio${article.image}`}
+                      src={`${process.env.BASE_PATH}${article.image}`}
                       alt={article.title}
                       width={192}
                       height={500}
