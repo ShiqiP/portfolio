@@ -10,6 +10,7 @@ export interface ProjectType {
 
 export interface ArticleType {
     id: number;
+    slug: string;
     title: string;
     excerpt: string;
     readTime: string;

@@ -18,7 +18,7 @@ const Projects: React.FC = () => {
 
     const router = useRouter();
     const go2Article = (article: ArticleType) => {
-        router.push(`/articles/${article.title}`)
+        router.push(`/articles/${article.slug}`)
     }
     return (
         <section id="articles" className="page">
