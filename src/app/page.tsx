@@ -71,7 +71,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 text-4xl font-bold bounce" onClick={() => go2Section('projects')}><SlArrowDown /></div>
+        <div className="absolute bottom-8 right-1/2 translate-x-1/2 text-xl md:text-5xl font-bold bounce" onClick={() => go2Section('projects')}><SlArrowDown /></div>
       </section>
 
       <section id="projects" className="min-h-lvh py-20 px-6 bg-gray-800">
