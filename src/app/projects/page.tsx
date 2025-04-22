@@ -9,7 +9,7 @@ const Projects: React.FC = () => {
     const [projects, setProjects] = useState<ProjectType[]>([]);
     useEffect(() => {
         const fetchProjects = async () => {
-            const res = await fetch('/projects.json');
+            const res = await fetch('./projects.json');
             const data = await res.json();
             setProjects(data);
         }

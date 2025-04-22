@@ -9,7 +9,7 @@ const Projects: React.FC = () => {
     const [articles, setArticles] = useState<ArticleType[]>([]);
     useEffect(() => {
         const fetchArticles = async () => {
-            const res = await fetch('/articles.json');
+            const res = await fetch('./articles.json');
             const data = await res.json();
             setArticles(data);
         }
