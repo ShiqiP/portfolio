@@ -1,0 +1,145 @@
+---
+  title: "Understanding this in JS : insights from implementing debounce"
+  date: "2025-04-22"
+  image: "/javascript.png"
+  readTime: "5 min"
+  excerpt: "Recently, I was reviewing how debounce is implemented. I found that I am still confused about the usage of this. So I dove deep, read a lot of articles about it. And I am writing this article to record my understanding of the usage of this."
+---
+
+# Understanding this in JS : insights from implementing debounce
+
+Recently, I was reviewing how debounce is implemented. I found that I am still confused about the usage of this. So I dove deep, read a lot of articles about it. And I am writing this article to record my understanding of the usage of this.
+
+The value of this depends on which kind of function it is in. In regular function, this is evaluated during run-time, it refers to the object that calls the function. If function is called as free function, this refers to global object in non-strict mode. And in arrow function, this is evaluated during defined-time, it inherits the value of this in its enclosing lexical context.
+So how this is used in the debounce function? Let's take a look at the code and three examples.
+
+```js
+let user = {
+  name: "user",
+  func: debounce(function () {
+    console.log(this.name);
+  }, 1000),
+};
+user.func(); // user
+
+function debounce(func, wait) {
+  let timer = null;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      // 1. this refers to Timeout object.
+      // func(args);
+      // 2. this points to Timeout object
+      // func.apply(this, args); wrong binding
+      // 3. context refers to user object which calls this function
+      func.apply(context, args);
+      timer = null;
+    }, wait);
+  };
+}
+```
+
+**example 1. Invoke callback function directly.**
+
+When invoking callback function directly, callback function is called inside setTimout(). Which means callback function called by Timeout object. So this in callback function refers to Timeout object. user.func() actually prints Timeout.name which is undefined.
+
+**example 2. Use apply() to change the this binding**
+
+If we want user.func() print out "user" correctly. The this in callback function should be bound to user object. And Function.prototype.apply() can help. But where we can get the user object? this in the setTimeout()? No! Learning from previous example, this in setTimeout() still refers to Timeout object. So this is a wrong binding.
+
+**example3. Store reference of this outside the timer.**
+
+Since the returning function will be called by user, this in the returning function refers to user which is the calling object. So we can use variable context to store the reference of this, and change the value of this to context using apply().
+
+**Moreover**
+
+But I have one more thought. What if we use arrow function in setTimeout()? Does it also work?
+this in the arrow function inherits from the enclosing lexical context in which this_1 is located. And this_1 refers to user, so eventually this in arrow function will be bound to user. And this code also works. We don't need extra variable to store the reference of origin object.
+
+```js
+function debounce(func, wait) {
+  let timer = null;
+  return function (...args) {
+    // 1.this_1
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      // 2.this inherits from the outside scope
+      func.apply(this, args);
+      timer = null;
+    }, wait);
+  };
+}
+```
+
+**How to rebind this?**
+
+Inherently, only in regular function this can be rebound. Using Function.prototype.bind() to return a new function with a specific value of this that doesn't change regardless of how it is called. Using Function.prototype.call(), Function.prototype.apply() to have the value of this changed to a specific value.
+For arrow function, there is only one way to "rebind" the value of this. It is using extra variable store the reference of specific object. And pass the variable to arrow function.
+
+```js
+const person = {
+  name: "Alice",
+  introduce: function (age, city) {
+    console.log(
+      `Hello, my name is ${this.name}. I am ${age} years old and live in ${city}.`
+    );
+  },
+};
+
+const anotherPerson = { name: "Bob" };
+
+// Using bind - returns a new function
+const boundGreet = person.greet.bind(anotherPerson);
+boundGreet(25, "New York"); // Output: Hello, my name is Bob. I am 25 years old and live in New York.
+
+// Using call: Pass arguments separately
+person.introduce.call(anotherPerson, 25, "New York");
+// Output: Hello, my name is Bob. I am 25 years old and live in New York.
+
+// Using apply: Pass arguments as an array
+person.introduce.apply(anotherPerson, [30, "Los Angeles"]);
+// Output: Hello, my name is Bob. I am 30 years old and live in Los Angeles.
+```
+
+**How to setup a specific execution environment for this in arrow function**
+
+**example1. inherit from surrounding scope**
+
+```js
+function Person(name) {
+  this.name = name;
+
+  this.sayHello = function () {
+    setTimeout(function () {
+      console.log("Regular function:", this.name); // `this` is NOT `Person` is Timeout Object
+    }, 1000);
+
+    setTimeout(() => {
+      console.log("Arrow function:", this.name); // `this` is `Person` preserve the this value of surrounding scope
+    }, 1000);
+  };
+}
+
+const p = new Person("Bob");
+p.sayHello();
+
+// Output:
+// Regular function: undefined (or window/global object in non-strict mode)
+// Arrow function: Bob
+```
+
+**example 2. could not be constructor function**
+
+```js
+const PersonArrow = (name) => {
+  this.name = name;
+};
+
+// Throws an error: PersonArrow is not a constructor
+const p2 = new PersonArrow("Charlie");
+```
+
+**Reference**
+
+- [MDN this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this "MDN")

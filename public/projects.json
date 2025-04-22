@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "title": "MIU Policy",
+        "description": "An academic project implemented with React and Express.js",
+        "image": "/javascript.png",
+        "technologies": [
+            "React",
+            "Node.js",
+            "Express",
+            "Tailwind CSS"
+        ],
+        "demoLink": "https://github.com/ShiqiP/express-react-policy-project"
+    }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 0,
+    "slug": "prototype_chain",
+    "title": "Prototype Chain",
+    "date": "2025-04-22",
+    "image": "/javascript.png",
+    "readTime": "3 min",
+    "excerpt": "My brief insight of prorotyoe chain."
+  },
+  {
+    "id": 1,
+    "slug": "this",
+    "title": "Understanding this in JS : insights from implementing debounce",
+    "date": "2025-04-22",
+    "image": "/javascript.png",
+    "readTime": "5 min",
+    "excerpt": "Recently, I was reviewing how debounce is implemented. I found that I am still confused about the usage of this. So I dove deep, read a lot of articles about it. And I am writing this article to record my understanding of the usage of this."
+  }
+]

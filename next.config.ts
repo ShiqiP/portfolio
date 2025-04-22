@@ -1,4 +1,15 @@
 import type { NextConfig } from "next";
+import nextMDX from "@next/mdx";
+import rehypeHighlight from "rehype-highlight";
+import remarkFrontmatter from "remark-frontmatter";
+
+const withMDX = nextMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkFrontmatter],
+    rehypePlugins: [rehypeHighlight]
+  }
+})
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -8,6 +19,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, //dynamic features
   },
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx']
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);

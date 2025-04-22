@@ -7,24 +7,7 @@ import { SlArrowDown } from "react-icons/sl";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  demoLink: string;
-}
-
-interface Article {
-  id: number;
-  title: string;
-  excerpt: string;
-  readTime: string;
-  date: string;
-  image: string;
-}
+import { ProjectType, ArticleType } from '@/type/index.type';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -38,51 +21,27 @@ const App: React.FC = () => {
     section?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-featured online shopping platform with React and Node.js",
-      image: "/javascript.png",
-      technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-      demoLink: "#"
-    },
-    {
-      id: 2,
-      title: "Task Management App",
-      description: "Collaborative task management solution with real-time updates",
-      image: "/javascript.png",
-      technologies: ["React", "Firebase", "Material-UI"],
-      demoLink: "#"
-    },
-    {
-      id: 3,
-      title: "Weather Dashboard",
-      description: "Real-time weather tracking with detailed analytics",
-      image: "/javascript.png",
-      technologies: ["React", "OpenWeather API", "Chart.js"],
-      demoLink: "#"
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const res = await fetch('/projects.json');
+      const data = await res.json();
+      setProjects(data);
     }
-  ];
+    fetchProjects();
+  }, [])
 
-  const articles: Article[] = [
-    {
-      id: 1,
-      title: "Mastering React Hooks",
-      excerpt: "Deep dive into React Hooks and their practical applications",
-      readTime: "5 min",
-      date: "2024-01-15",
-      image: "/sunflower.jpg"
-    },
-    {
-      id: 2,
-      title: "Modern CSS Techniques",
-      excerpt: "Exploring advanced CSS features and best practices",
-      readTime: "4 min",
-      date: "2024-01-10",
-      image: "/sunflower.jpg"
+
+  const [articles, setArticles] = useState<ArticleType[]>([]);
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const res = await fetch('/articles.json');
+      const data = await res.json();
+      setArticles(data.splice(0, 2));
     }
-  ];
+    fetchArticles();
+  }, [])
+
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
       <section id="home" className="min-h-lvh pt-32 pb-20 px-6">

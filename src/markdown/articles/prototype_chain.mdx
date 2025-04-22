@@ -1,0 +1,172 @@
+---
+  title: "Prototype Chain"
+  date: "2025-04-22"
+  image: "/javascript.png"
+  readTime: "3 min"
+  excerpt: "My brief insight of prorotyoe chain."
+---
+
+
+# Prototype Chain
+
+Every non-primitive type inherits from Object and has a prototype chain.
+
+## What is prototype chain?/How prototype chain works?
+
+When accessing an object's property, the property will be sought on the current object. If it's not found, JS looks for it on the prototype of the object. If still not found, then on the prototype of its prototype, and so on until the property is found or reaches the end where the prototype is null. This process is like a chain. So, call it a prototype chain.
+
+> Objects can be linked to other objects, to magically get all the properties that other object has. [eloquentjavascript](https://eloquentjavascript.net/06_object.html "object")
+
+## Terms
+
+Before the illustration, some terms needed to be introduced.
+
+**constructor function**
+
+Intuitively, it works as a constructor. It's like a blueprint that can be inherited. It is used with the **new** keyword to create new instances. It can be assigned a special property **prototype** which specifies the class-specific properties for instances created by it. For the instances specific properties, they can be declared inside the constructor function.
+
+**instance**
+
+It is an object that is created by a constructor function. Its prototype can be accessed with **\_\_proto\_\_** or **Object.getPrototypeOf()**, or can be modified with **Object.setPrototypeOf()**.
+
+**\_\_proto\_\_**
+
+It is a property of an instance from where to get the prototype of the instance. It is a legacy but still accessible. In Chrome, there is **[[Prototype]]**, which shows the prototype of the Object. And it can be accessed or modified via **Object.getPrototypeOf()** or **Object.setPrototypeOf()**.
+
+**prototype**
+
+It is a property of a constructor function that specifies the class-specific properties for instances created by it.
+
+**constructor**
+
+It is a property of **Constructor.prototype** which references the constructor function itself. **Constructor.prototype.constructor === Constructor**. This allows one to access the original constructor from any instance. **instance.\_\_proto\_\_.constructor === Constructor**
+
+<!-- Using construction function and new to create instance is the original method. (In ES6 class syntax, sugar is introduced, and it is an abstraction over the underlying prototype mechanism.)    -->
+
+```js
+// constructor function
+function Constructor(name) {
+  this.name = name;
+}
+// prototype
+Constructor.prototype.sayHi = function () {
+  console.log(this.name);
+};
+// instance
+let instance = new Constructor("instance1");
+instance.sayHi(); // instance1
+
+// __proto__
+instance.__proto__ === Constructor.prototype; // true
+
+// constructor
+Constructor.prototype.constructor === Constructor; // true
+```
+
+## Why prototype mechanism exists?
+
+If there are 3 instances that have the same method(s). The methods may be copied 3 times for each instance. But since the methods are the same. There is no need to have 3 copies of the method.
+
+So that is why the prototype mechanism is applied. Constructor function can be declared and set the common functions in its prototype.
+
+Instances inherit from the constructor function and share the same method, which **reduce latency** and **lower memory usage**
+
+```js
+// bad usage
+const boxes = [
+  {
+    value: 1,
+    getValue() {
+      return this.value;
+    },
+  },
+  {
+    value: 2,
+    getValue() {
+      return this.value;
+    },
+  },
+  {
+    value: 3,
+    getValue() {
+      return this.value;
+    },
+  },
+];
+
+// constructor function
+function Box(value) {
+  this.value = value;
+}
+// declare methods
+Box.prototype.getValue = function () {
+  return this.value;
+};
+// create instances
+const boxes = [new Box(1), new Box(2), new Box(3)];
+```
+
+## Property lookup
+
+When accessing a property, what's behind the scene
+
+- JS looks for sayHi on instance, not found
+- looks for **instance.\_\_proto\_\_**, which references **Constructor.prototype**, found
+- executes the function
+
+```js
+function Constructor(name) {
+  this.name = name;
+}
+Constructor.prototype.sayHi = function () {
+  console.log(this.name);
+};
+let instance = new Constructor("instance");
+
+instance.sayHi(); // instance
+// instance -> Constructor.prototype → Object.prototype → null
+```
+
+Do you know what will happen when accessing Constructor.sayHi?
+
+```js
+Constructor.sayHi; // undefined
+// Constructor -> Function.prototype -> Object.prototype -> null
+```
+
+**Constructor** is a function inherited from Function, and Function inherits from Object. There is no such sayHi method in the Constructor itself or Function or Object. That's why it is undefined.
+
+Constructor.prototype is used to specify properties to be assigned to all instances of objects, not for the Constructor itself.
+
+> It should not be confused with the func.prototype property of functions, which instead specifies the [[Prototype]] to be assigned to all instances of objects created by the given function when used as a constructor. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain#inheritance_with_the_prototype_chain "Inheritance_and_the_prototype_chain")
+
+## Distinguishing prototype of Constructor, Constructor.prototype
+
+**Constructor.prototype** is to set the prototype for the instances
+
+**instance.\_\_proto\_\_** is to get the prototype of instance, thus
+
+```js
+instance.__proto__ === Constructor.prototype; // true
+```
+
+**Constructor.\_\_proto\_\_** is to get the prototype of the Constructor itself
+
+**Constructor** is a function inherits from **Function**, thus.
+
+```js
+Constructor.__proto__ === Function.prototype; // true
+```
+
+<!-- ## class syntax sugar -->
+
+<!-- ### create instances -->
+
+<!-- ### the class-specific instance-specific property -->
+
+<!-- ### the prototype in constructor function -->
+
+## Reference
+
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain)
+- [eloquentjavascript](https://eloquentjavascript.net/06_object.html "object")
