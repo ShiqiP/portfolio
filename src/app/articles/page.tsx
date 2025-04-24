@@ -28,7 +28,7 @@ const Projects: React.FC = () => {
                     {articles.map((article) => (
                         <div
                             key={article.id}
-                            className="article-card"
+                            className="article-card cursor-pointer"
                             data-aos="fade-up"
                             onClick={() => go2Article(article)}
                         >

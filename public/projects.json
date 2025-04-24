@@ -1,8 +1,20 @@
 [
     {
+        "id": 0,
+        "title": "Paperless Conference System (Web development Frontend)",
+        "description": "This is an advanced meeting and collaboration platform tailored for professional environments. Designed to enhance productivity in enterprise scenarios, it combines real-time collaboration tools with seamless user management and interactive document handling. This is a ToB product, and the version shown includes only the public-facing features.",
+        "image": "/paperless.jpeg",
+        "technologies": [
+            "React",
+            "Vue",
+            "Tailwind CSS"
+        ],
+        "demoLink": "https://www.linkedin.com/posts/dsppa-audiovisual-09120b103_dsppa-paperlessconferencesystem-conferencetech-activity-7321080324015243264-cL7N/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEpfkC4B5DTS5jnFw-dp0liX1HbL2Qs1NQs"
+    },
+    {
         "id": 1,
         "title": "MIU Policy",
-        "description": "An academic project implemented with React and Express.js",
+        "description": "This is a full-stack academic project designed to streamline the management and presentation of institutional policies. It features a secure authentication system, a rich text editing interface, and a structured policy catalog.",
         "image": "/javascript.png",
         "technologies": [
             "React",
