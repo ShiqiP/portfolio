@@ -21,7 +21,7 @@ const Projects: React.FC = () => {
     return (
         <section id="projects" className="min-h-lvh py-20 px-6 bg-gray-800">
             <div className="container mx-auto max-w-4xl">
-                <h2 className="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Latest Articles</h2>
+                <h2 className="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Projects</h2>
                 <div className="space-y-8">
                     {projects.map((project) => (
                         <div
@@ -43,7 +43,7 @@ const Projects: React.FC = () => {
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                                    <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                                    <p className="text-gray-300 mb-4">{project.description}</p>
                                     <div className="flex flex-wrap gap-2 mb-4">
                                         {project.technologies.map((tech) => (
                                             <span key={tech} className="text-gray-50 tech-tag">{tech}</span>

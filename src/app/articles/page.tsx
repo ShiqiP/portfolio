@@ -45,8 +45,8 @@ const Projects: React.FC = () => {
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="text-xl font-bold mb-2">{article.title}</h3>
-                                    <p className="text-gray-600 dark:text-gray-300 mb-4">{article.excerpt}</p>
-                                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="text-gray-300 mb-4">{article.excerpt}</p>
+                                    <div className="flex items-center text-sm text-gray-400">
                                         <span>{article.date}</span>
                                         <span className="mx-2">•</span>
                                         <span>{article.readTime} read</span>
