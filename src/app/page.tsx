@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaMoon, FaSun, FaGithub, FaLinkedin } from 'react-icons/fa';
-import { SlArrowDown } from "react-icons/sl";
+import SkillsShowcase from './components/skill-showcase';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
-      <section id="home" className="min-h-lvh pt-32 pb-20 px-6">
+      <section id="home" className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl" data-aos="fade-up">
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-48 h-48 rounded-full overflow-hidden">
@@ -32,13 +32,14 @@ const App: React.FC = () => {
             <div className="flex-1">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Shiqi Pang</h1>
               <p className="text-2xl mb-2">Frontend Developer</p>
-              <p className="text-lg mb-6">Passionate frontend developer specializing in React, Vue and modern web technologies. Like to write and share my insights of technologies.</p>
+              <p className="text-lg mb-2">Passionate frontend developer proficient in
+                building responsive and user-friendly web applications across various domains, including embedded systems, IoT, and data
+                visualization.
+              </p>
               <div className="flex space-x-4">
-                <button className="btn-primary flex items-center gap-2">
-                </button>
                 <div className="flex space-x-3">
-                  <a href="https://github.com/ShiqiP" className="social-icon"><FaGithub /></a>
-                  <a href="https://www.linkedin.com/in/shiqi-pang/" className="social-icon"><FaLinkedin /></a>
+                  <a href="https://github.com/ShiqiP" className="social-icon"><FaGithub size={30} /></a>
+                  <a href="https://www.linkedin.com/in/shiqi-pang/" className="social-icon"><FaLinkedin size={30} /></a>
                 </div>
               </div>
             </div>
@@ -46,7 +47,7 @@ const App: React.FC = () => {
         </div>
         {/* <div className="absolute bottom-8 right-1/2 translate-x-1/2 text-xl md:text-5xl font-bold bounce" onClick={() => go2Section('projects')}><SlArrowDown /></div> */}
       </section>
-
+      <SkillsShowcase />
       <style jsx>{`
         .btn-primary {
           @apply bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors;

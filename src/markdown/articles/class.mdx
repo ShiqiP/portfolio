@@ -1,0 +1,334 @@
+---
+  title: "class, prototype chain, babel.js"
+  date: "2025-05-03"
+  image: "/javascript.png"
+  readTime: "6 min"
+  excerpt: "Class is a sugar syntax over a prototype-based inheritance system. Let's see what's under the hood!"
+---
+
+
+# class, prototype chain, babel.js
+
+Recently, I've been learning about the <strong>class</strong> syntax in JavaScript. A <strong>class</strong> is a template for creating objects and was introduced in ES6. However, class is a syntax sugar over a prototype-based inheritance system. In this article, I assume that you are already familiar with the basic <strong>class</strong> syntax and focus on illustrating how it's implemented via prototypes.
+
+Before diving in, let me introduce a tool called <strong> Babel.js </strong>. It is a JavaScript compiler that helps you transpile modern JavaScript code to ES5 or earlier code, which ensures compatibility with older environments or browsers.
+
+You can try Babel directly here:
+👉 [Try Babel](https://babeljs.io/repl)
+
+(Clearing the "targets" input gives you an older version of JS code.)
+
+Using the above tool, you can see exactly how modern <strong>class</strong> syntax is transformed into prototype-based syntax. By doing labs on your own, you can build a deeper understanding and retain the concepts more effectively. My goal here is to extract the core ideas and make them more concise and easier to understand.
+
+## public property & method
+
+✅ <strong>Class Syntax</strong>
+
+```js
+class User {
+  gender;
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHi() {
+    console.log(this.name);
+  }
+}
+
+// Usage:
+let user = new User("John");
+user.sayHi(); // John
+```
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-1.png`}
+/>
+    
+🔁 <strong>Prototype-Based Equivalent</strong>
+
+```js
+function User(name) {
+  this.name = name;
+  this.gender;
+}
+
+User.prototype.sayHi = function () {
+  console.log(this.name);
+};
+
+// Usage
+var user = new User("John");
+user.sayHi(); // John
+```
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image.png`}
+/>
+
+- Public properties are initialized inside the construction function.
+- Public methods are defined on the <strong>User.prototype</strong> so that all instances can access them through the <strong>prototype chain.</strong>
+
+## private property & method
+
+✅ <strong>Class Syntax</strong>
+
+```js
+class User {
+  #password;
+
+  constructor(name, password) {
+    this.name = name;
+    this.#password = password;
+  }
+
+  #logAccess() {
+    console.log(`Checking password for ${this.name}`);
+  }
+
+  checkPassword(pwd) {
+    this.#logAccess(); // ✅ Can access private method internally
+    return this.#password === pwd;
+  }
+}
+
+// Usage
+const user = new User("Alice", "1234");
+console.log(user.checkPassword("1234")); // true
+// user.#logAccess(); // ❌ SyntaxError: private method is not accessible
+```
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-2.png`}
+/>
+
+- <strong>#password</strong> and <strong>#logAccess</strong> are visible in the instance. But they are truly private.
+- <strong>PrivateMethod</strong> stores all the private methods.
+-  It is really intuitive and readable.
+
+🔁 <strong>Prototype-Based Equivalent (closure)</strong>
+
+```js
+function User(name, password) {
+  this.name = name;
+
+  // Private property
+  var _password = password;
+
+  // Private method
+  function logAccess() {
+    console.log("Checking password for " + name);
+  }
+
+  // Privileged method
+  this.checkPassword = function (pwd) {
+    logAccess(); // ✅ Has access to private method
+    return _password === pwd;
+  };
+}
+
+// Usage
+var user = new User("Alice", "1234");
+console.log(user.checkPassword("1234")); // true
+// user.logAccess(); // ❌ Undefined — not accessible
+```
+- Closures are used to simulate private fields.
+- <strong>\_password</strong> and <strong>\_logAccess</strong> are not accessible outside the instance, and are invisible in the instance
+
+🔁 <strong>Prototype-Based Equivalent (WeakMap)</strong>
+
+```js
+const _logAccess = new WeakMap();
+const _password = new WeakMap();
+
+function User(name, password) {
+  this.name = name;
+  _password.set(this, password);
+
+  _logAccess.set(this, function () {
+    console.log("Checking password for " + name);
+  });
+}
+
+User.prototype.checkPassword = function (pwd) {
+  _logAccess.get(this)(); // invoke private method
+  return _password.get(this) === pwd;
+};
+const user = new User("Alice", "1234");
+console.log(user.checkPassword("1234")); // true
+// _logAccess(); // ❌ there is no reference of instance
+```
+
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-3.png`}
+/>
+
+- This approach is used by Babel.js to simulate private fields using <strong>WeakMap</strong>.
+
+- Even though <strong>WeakMap</strong> is an ES6 feature, Babel uses it for better safety and privacy. If you are targeting older browsers, you'll need to use <strong>core-js</strong> to polyfill missing ES6+ features.
+
+## static property & method
+
+✅ <strong>Class Syntax</strong>
+
+```js
+class User {
+  static count = 0; // static property
+
+  constructor(name) {
+    this.name = name;
+    User.count++; // increment static count for each instance
+  }
+
+  static getCount() {
+    // static method
+    return User.count;
+  }
+
+  sayHi() {
+    console.log(`Hi, I'm ${this.name}`);
+  }
+}
+
+// Usage
+const u1 = new User("Alice");
+const u2 = new User("Bob");
+
+console.log(User.getCount()); // 2
+// u1.getCount(); ❌ Error: getCount is not a function (it's static)
+```
+
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-5.png`}
+/>
+
+- <strong>User.count</strong> and <strong>User.getCount()</strong> are class-level members. They are not available on instances.
+
+
+🔁 <strong>Prototype-Based Equivalent</strong>
+
+```js
+function User(name) {
+  this.name = name;
+  User.count++; // simulate static property
+}
+
+// Static property
+User.count = 0;
+
+// Static method
+User.getCount = function () {
+  return User.count;
+};
+
+// Instance method (on prototype)
+User.prototype.sayHi = function () {
+  console.log("Hi, I'm " + this.name);
+};
+
+// Usage
+var u1 = new User("Alice");
+var u2 = new User("Bob");
+
+console.log(User.getCount()); // 2
+```
+
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-4.png`}
+/>
+
+
+- Static members are added directly to the constructor function.
+- Instances can not access it directly.
+
+## extends & inheritance
+
+✅ <strong>Class Syntax</strong>
+
+```js
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // Call parent constructor
+    this.breed = breed; // Now you can use this
+  }
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+// Usage
+const d = new Dog("Rex");
+d.speak(); // Rex barks.
+```
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-7.png`}
+/>
+
+
+- <strong>Dog</strong> extends from <strong>Animal</strong>. We can see from the pictures that <strong>Dog.[[Prototype]] === Animal</strong>
+
+🔁 <strong>Prototype-Based Equivalent</strong>
+
+
+```js
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.speak = function () {
+  console.log(this.name + " makes a sound.");
+};
+
+function Dog(name) {
+  Animal.call(this, name); // Call parent constructor
+}
+
+// Inherit prototype methods
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+// Override speak method
+Dog.prototype.speak = function () {
+  console.log(this.name + " barks.");
+};
+
+// Usage
+var d = new Dog("Rex");
+d.speak(); // Rex barks.
+```
+
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-6.png`}
+/>
+
+- <strong>Object.creat(Animal.prototype)</strong> returns an empty object whose internal prototype(<strong>[[Prototype]]</strong>) points to <strong>Animal.prototype</strong>. That is how the <strong>extends</strong> feature is implemented in the prototype-based system, enabling <strong>Dog</strong> to inherit from <strong>Animal</strong>.
+
+- Additionally, <strong>Dog.prototype.constructor</strong> needs to be explicitly assigned to <strong>Dog</strong> itself. (This is the prototype-based mechanism, which allows instances to have access to their Class)
+
+## Summary
+
+If your target browsers support ES6, then <strong>class</strong> is the recommended syntax. It's more intuitive and familiar to developers with an object-oriented programming background.
+
+However, if you need to support older browsers that don't support ES6, you'll either need to use prototype-based syntax or rely on a tool like <strong> Babel.js </strong> to transpile your modern JavaScript code to ES5.
+
+That said, understanding how the prototype system works -- and how class is implemented under the hood -- is essential. It not only helps you debug and solve complex JavaScript issues but also becomes especially valuable when maintaining legacy projects that were written in pre-ES6 style.
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+
+[javascript.info](https://javascript.info/class)
+
+[Babel.js](https://babeljs.io/docs/)
