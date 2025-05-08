@@ -1,6 +1,15 @@
 [
   {
     "id": 0,
+    "slug": "class",
+    "title": "class, prototype chain, babel.js",
+    "date": "2025-05-03",
+    "image": "/javascript.png",
+    "readTime": "6 min",
+    "excerpt": "Class is a sugar syntax over a prototype-based inheritance system. Let's see what's under the hood!"
+  },
+  {
+    "id": 1,
     "slug": "prototype",
     "title": "Prototype Chain",
     "date": "2025-04-22",
@@ -9,7 +18,7 @@
     "excerpt": "My brief insight of prorotyoe chain."
   },
   {
-    "id": 1,
+    "id": 2,
     "slug": "this",
     "title": "Understanding this in JS : insights from implementing debounce",
     "date": "2025-04-22",
