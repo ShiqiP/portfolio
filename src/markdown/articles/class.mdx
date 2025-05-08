@@ -40,8 +40,9 @@ class User {
 let user = new User("John");
 user.sayHi(); // John
 ```
-
-![alt text](/MDImg/class/image-1.png)
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-1.png`}
+/>
     
 🔁 <strong>Prototype-Based Equivalent</strong>
 
@@ -60,7 +61,9 @@ var user = new User("John");
 user.sayHi(); // John
 ```
 
-![alt text](/MDImg/class/image.png)
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image.png`}
+/>
 
 - Public properties are initialized inside the construction function.
 - Public methods are defined on the <strong>User.prototype</strong> so that all instances can access them through the <strong>prototype chain.</strong>
@@ -94,7 +97,9 @@ console.log(user.checkPassword("1234")); // true
 // user.#logAccess(); // ❌ SyntaxError: private method is not accessible
 ```
 
-![alt text](/MDImg/class/image-2.png)
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-2.png`}
+/>
 
 - <strong>#password</strong> and <strong>#logAccess</strong> are visible in the instance. But they are truly private.
 - <strong>PrivateMethod</strong> stores all the private methods.
@@ -153,7 +158,10 @@ console.log(user.checkPassword("1234")); // true
 // _logAccess(); // ❌ there is no reference of instance
 ```
 
-![alt text](/MDImg/class/image-3.png)
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-3.png`}
+/>
 
 - This approach is used by Babel.js to simulate private fields using <strong>WeakMap</strong>.
 
@@ -190,7 +198,10 @@ console.log(User.getCount()); // 2
 // u1.getCount(); ❌ Error: getCount is not a function (it's static)
 ```
 
-![alt text](/MDImg/class/image-5.png)
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-5.png`}
+/>
 
 - <strong>User.count</strong> and <strong>User.getCount()</strong> are class-level members. They are not available on instances.
 
@@ -223,7 +234,11 @@ var u2 = new User("Bob");
 console.log(User.getCount()); // 2
 ```
 
-![alt text](/MDImg/class/image-4.png)
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-4.png`}
+/>
+
 
 - Static members are added directly to the constructor function.
 - Instances can not access it directly.
@@ -258,7 +273,10 @@ const d = new Dog("Rex");
 d.speak(); // Rex barks.
 ```
 
-![alt text](/MDImg/class/image-7.png)
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-7.png`}
+/>
+
 
 - <strong>Dog</strong> extends from <strong>Animal</strong>. We can see from the pictures that <strong>Dog.[[Prototype]] === Animal</strong>
 
@@ -292,7 +310,10 @@ var d = new Dog("Rex");
 d.speak(); // Rex barks.
 ```
 
-![alt text](/MDImg/class/image-6.png)
+
+<img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/MDImg/class/image-6.png`}
+/>
 
 - <strong>Object.creat(Animal.prototype)</strong> returns an empty object whose internal prototype(<strong>[[Prototype]]</strong>) points to <strong>Animal.prototype</strong>. That is how the <strong>extends</strong> feature is implemented in the prototype-based system, enabling <strong>Dog</strong> to inherit from <strong>Animal</strong>.
 
