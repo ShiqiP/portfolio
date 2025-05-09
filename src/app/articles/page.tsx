@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import { ArticleType } from '@/type/index.type';
 import { useEffect, useState } from 'react';
 
-
 const Projects: React.FC = () => {
     const [articles, setArticles] = useState<ArticleType[]>([]);
     useEffect(() => {
