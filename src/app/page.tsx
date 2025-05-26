@@ -31,10 +31,9 @@ const App: React.FC = () => {
             </div>
             <div className="flex-1">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Shiqi Pang</h1>
-              <p className="text-2xl mb-2">Frontend Developer</p>
-              <p className="text-lg mb-2">Passionate frontend developer proficient in
-                building responsive and user-friendly web applications across various domains, including embedded systems, IoT, and data
-                visualization.
+              <p className="text-2xl mb-2">Frontend Developer/Software Engineer</p>
+              <p className="text-lg mb-2">Passionate developer proficient in
+                building responsive and user-friendly web applications.
               </p>
               <div className="flex space-x-4">
                 <div className="flex space-x-3">
