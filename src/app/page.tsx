@@ -31,8 +31,8 @@ const App: React.FC = () => {
             </div>
             <div className="flex-1">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Shiqi Pang</h1>
-              <p className="text-2xl mb-2">Frontend Engineer/Software Engineer</p>
-              <p className="text-lg mb-2">${"🪄 Programming feels like magic — it’s the art of turning imagination into interactive experiences. I’m a magician🧙 always learning new spells and refining my craft to build things that impress and inspire!"}
+              <p className="text-2xl mb-2">Frontend Engineer / Software Engineer</p>
+              <p className="text-lg mb-2">🪄 Programming feels like magic — it’s the art of turning imagination into interactive experiences. I’m a magician🧙 always learning new spells and refining my craft to build things that impress and inspire!
               </p>
               <div className="flex space-x-4">
                 <div className="flex space-x-3">
