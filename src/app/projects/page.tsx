@@ -19,7 +19,7 @@ const Projects: React.FC = () => {
     }, [])
 
     return (
-        <section id="projects" className="min-h-lvh py-20 px-6 bg-gray-800">
+        <section id="projects" className="min-h-lvh py-20 px-6 bg-main">
             <div className="container mx-auto max-w-4xl">
                 <h2 className="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Projects</h2>
                 <div className="space-y-8">

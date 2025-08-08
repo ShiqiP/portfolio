@@ -20,7 +20,7 @@ const Projects: React.FC = () => {
         router.push(`/articles/${article.slug}`)
     }
     return (
-        <section id="articles" className="page">
+        <section id="articles" className="page bg-main">
             <div className="container mx-auto max-w-4xl">
                 <h2 className="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Articles</h2>
                 <div className="space-y-8">

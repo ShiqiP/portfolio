@@ -12,13 +12,13 @@ const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init({ duration: 600 });
   }, []);
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
+    <div className={`min-h-screen bg-main`}>
       <section id="home" className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-4xl" data-aos="fade-up">
+        <div className="container mx-auto max-w-4xl" data-aos="flip-up">
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-48 h-48 rounded-full overflow-hidden">
               <Image
@@ -43,25 +43,10 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* <div className="absolute bottom-8 right-1/2 translate-x-1/2 text-xl md:text-5xl font-bold bounce" onClick={() => go2Section('projects')}><SlArrowDown /></div> */}
       </section>
-      <SkillsShowcase />
       <style jsx>{`
-        .btn-primary {
-          @apply bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors;
-        }
-        .social-icon {
-          @apply text-xl hover:text-blue-600 dark:hover:text-blue-400 transition-colors;
-        }
-        .bounce {
-          animation: bounce 2s ease infinite;
-          cursor:pointer;
-        }
-        @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-          40% {transform: translateY(-30px);}
-          60% {transform: translateY(-15px);}
-        }
+        .bg-main {
+          @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400;
       `}</style>
     </div>
   );

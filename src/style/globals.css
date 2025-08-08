@@ -28,3 +28,55 @@ body {
 .page {
   @apply min-h-lvh py-20 px-6 bg-gray-800;
 }
+
+.text-neon-cyan {
+  @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent;
+}
+
+.hover\:text-neon-cyan:hover {
+  @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.5rem 0;
+  color: var(--foreground);
+}
+
+.nav-link:hover {
+  @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent;
+}
+
+.nav-link-active {
+  @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent;
+  position: relative;
+}
+
+.bg-neon-cyan {
+  @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400;
+}
+
+.nav-link-active::after {
+  @apply bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400;
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  transition: width 0.3s ease-in-out;
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+.bg-main {
+  @theme {
+    --color-first: #231932;
+    --color-second: #20172c;
+    --color-third: #1d3653;
+  }
+  @apply bg-gradient-to-bl from-first via-second to-third;
+}

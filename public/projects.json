@@ -1,22 +1,23 @@
 [
+
     {
         "id": 1,
-        "title": "Plantyx",
-        "description": "Over the past few days, I’ve been working on implementing a clean and modern web prototype I found on Figma. I used Next.js, Tailwind CSS, and custom CSS to bring it to life. It's responsive layout that works smoothly on both desktop and mobile",
-        "image": "/plantyx.gif",
+        "title": "Shiqi AI tools",
+        "description": "Discover our collection of intelligent AI tools designed to boost your productivity, creativity, and efficiency. Each kit is crafted with cutting-edge technology to solve real-world challenges.",
+        "image": "/shiqi-ai-tools.png",
         "technologies": [
-            "Tailwind CSS",
+            "Cursor",
+            "AI",
             "Next.js",
-            "Figma",
-            "Pixel-perfect"
+            "Tailwind CSS"
         ],
-        "demoLink": "https://shiqip.github.io/plantyx"
+        "demoLink": "https://shiqi-ai-tools.vercel.app/"
     },
     {
         "id": 2,
         "title": "StudyHub",
         "description": "It's an intelligent, chat-based platform for managing documents and files. Users can ask questions in natural language, and the system returns accurate answers along with three relevant resources based on the question. It also offers secure authentication, rich content creation, and smart, semantic search-driven recommendations",
-        "image": "/studyhub.gif",
+        "image": "/studyhub.png",
         "technologies": [
             "LLM/OpenAI API",
             "Angular19",
@@ -44,7 +45,7 @@
         "id": 10,
         "title": "MIU Policy",
         "description": "This is a full-stack academic project designed to streamline the management and presentation of institutional policies. It features a secure authentication system, a rich text editing interface, and a structured policy catalog.",
-        "image": "/miu_policy.gif",
+        "image": "/miu-policy.png",
         "technologies": [
             "React",
             "Node.js",
@@ -52,5 +53,18 @@
             "Tailwind CSS"
         ],
         "demoLink": "https://github.com/ShiqiP/express-react-policy-project"
+    },
+        {
+        "id": 12,
+        "title": "Plantyx",
+        "description": "Over the past few days, I’ve been working on implementing a clean and modern web prototype I found on Figma. I used Next.js, Tailwind CSS, and custom CSS to bring it to life. It's responsive layout that works smoothly on both desktop and mobile",
+        "image": "/plantyx.png",
+        "technologies": [
+            "Tailwind CSS",
+            "Next.js",
+            "Figma",
+            "Pixel-perfect"
+        ],
+        "demoLink": "https://shiqip.github.io/plantyx"
     }
 ]
