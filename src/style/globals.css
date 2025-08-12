@@ -76,7 +76,7 @@ body {
   @theme {
     --color-first: #231932;
     --color-second: #20172c;
-    --color-third: #1d3653;
+    --color-third: #3366ff;
   }
-  @apply bg-gradient-to-bl from-first via-second to-third;
+  @apply bg-gradient-to-br from-indigo-950 via-second to-purple-900;
 }

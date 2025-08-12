@@ -1,0 +1,41 @@
+:root {
+    --color-bg: #050505;
+    --color-text: #ffffff;
+    --color-primary: #ff3366;
+    --color-secondary: #3366ff;
+    --color-tertiary: #33cc99;
+    --color-accent: #ffcc00;
+    --card-radius: 16px;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.5);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card {
+    position: relative;
+    border-radius: var(--card-radius);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    transform-style: preserve-3d;
+    transition: var(--transition);
+    cursor: pointer;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+
