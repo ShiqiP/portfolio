@@ -51,7 +51,7 @@ const SkillWidget = ({
         if (!containerRef.current) return;
 
         const resizeObserver = new ResizeObserver((entries) => {
-            for (let entry of entries) {
+            for (const entry of entries) {
                 const { width, height } = entry.contentRect;
                 setDimensions({ width, height });
             }
@@ -104,14 +104,17 @@ const SkillWidget = ({
             );
 
             // Save original size for rendering
-            (body as any).renderWidth = textWidth;
-            (body as any).renderHeight = height;
+            (body as SkillBody).renderWidth = textWidth;
+            (body as SkillBody).renderHeight = height;
 
-            return body;
+            return body as SkillBody;
         });
 
         bodiesRef.current = bodies;
         World.add(engine.world, bodies);
+
+        // Type for skill body with extra renderWidth/renderHeight
+        type SkillBody = Matter.Body & { renderWidth: number; renderHeight: number };
 
         // Create walls
         const thickness = 50;
@@ -149,11 +152,12 @@ const SkillWidget = ({
             ctx.font = "14px sans-serif";
 
             bodies.forEach((body) => {
-                const { position, angle } = body;
-                const skill = body.label;
+                const skillBody = body as SkillBody;
+                const { position, angle } = skillBody;
+                const skill = skillBody.label;
                 // Draw pill background with fixed size
-                const width = (body as any).renderWidth;
-                const height = (body as any).renderHeight;
+                const width = skillBody.renderWidth;
+                const height = skillBody.renderHeight;
 
                 ctx.save();
                 ctx.translate(position.x, position.y);
