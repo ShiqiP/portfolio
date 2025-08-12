@@ -47,8 +47,8 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className='w-full min-h-90 grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 container mx-auto' >
-            <div className="h-full card border border-[#fff]/[0.1] rounded-2xl bg-[#fff]/[0.03]" >
+          <div className='w-full min-h-100 grid grid-cols-1 md:grid-cols-2 gap-6 md:flex-1  mx-auto' >
+            <div className="min-h-80 md:h-full card border border-[#fff]/[0.1] rounded-2xl bg-[#fff]/[0.03]" >
               <SkillWidget />
             </div>
             <div className='flex min-h-90 flex-col gap-6'>

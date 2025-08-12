@@ -65,12 +65,15 @@ const SkillWidget = ({
     }, []);
 
     useEffect(() => {
-        if (!canvasRef.current || dimensions.width === 0 || dimensions.height === 0) return;
+    if (!canvasRef.current || dimensions.width === 0 || dimensions.height === 0) return;
 
-        // Setup Matter.js
-        const canvas = canvasRef.current;
-        canvas.width = dimensions.width;
-        canvas.height = dimensions.height;
+    // Setup Matter.js
+    const canvas = canvasRef.current;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = dimensions.width * dpr;
+    canvas.height = dimensions.height * dpr;
+    canvas.style.width = dimensions.width + 'px';
+    canvas.style.height = dimensions.height + 'px';
 
         const engine = Engine.create();
         engineRef.current = engine;
@@ -79,8 +82,10 @@ const SkillWidget = ({
         const runner = Runner.create();
         Runner.run(runner, engine);
 
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // reset any existing transforms
+    ctx.scale(dpr, dpr);
 
         // Create skill bodies
         const bodies = skills.map((skill) => {
