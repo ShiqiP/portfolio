@@ -11,6 +11,7 @@ import '@/style/app.css';
 const App: React.FC = () => {
 
   const SkillWidget = dynamic(() => import('./components/skill-widget'), { ssr: false });
+  const SkillChart = dynamic(() => import('./components/skill-chart'), { ssr: false });
 
   const [darkMode, setDarkMode] = useState(true);
 
@@ -47,7 +48,7 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className='w-full min-h-100 grid grid-cols-1 md:grid-cols-2 gap-6 md:flex-1  mx-auto' >
+          <div className='w-full min-h-100 grid grid-cols-1 md:grid-cols-3 gap-6 md:flex-1  mx-auto' >
             <div className="min-h-80 md:h-full card border border-[#fff]/[0.1] rounded-2xl bg-[#fff]/[0.03]" >
               <SkillWidget />
             </div>
@@ -70,11 +71,12 @@ const App: React.FC = () => {
                 </a>
               </div>
               <div className="card border flex-1 border-[#fff]/[0.1] rounded-2xl  flex justify-center items-center text-[#fff]/[0.5]" >
-                To be continued...
+                to be continued...
               </div>
             </div>
-            {/* <div className="h-full min-h-80 card border border-[#fff]/[0.1] rounded-2xl bg-[#fff]/[0.03]" >
-            </div> */}
+            <div className="h-full min-h-80 card border border-[#fff]/[0.1] rounded-2xl bg-[#fff]/[0.03]" >
+              <SkillChart />
+            </div>
           </div>
         </section>
 
